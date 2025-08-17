@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MME-Emotion: A Holistic Evaluation Benchmark For Emotional Intelligence in Multimodal Large Language Models">
+  <meta name="keywords" content="MMSearch">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> MME-Emotion: A Holistic Evaluation Benchmark For Emotional Intelligence in Multimodal Large Language Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script> -->
+  <!-- <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+/Users/panlu/Library/Mobile Documents/com~apple~CloudDocs/ImageMath/visual-mathqa-server/data_final/images
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link rel="icon" href="">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<!--
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+    -->
+      <!-- <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> -->
+      <!-- @PAN TODO: consider adding links? -->
+      <!--
+      <div class="navbar-item has-dropdown is-hoverable">
+
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://arxiv.org/pdf/2411.15296">
+            <b>MME-Survey</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://mmsearch.github.io/">
+            <b>MMSearch</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://mathverse-cuhk.github.io/">
+            <b>MathVerse</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://github.com/OpenGVLab/LLaMA-Adapter">
+            LLaMA-Adapter (V2) <p style="font-size:18px; display: inline; margin-left: 5px;"></p>
+          </a>
+          <a class="navbar-item" href="https://github.com/OpenGVLab/LLaMA-Adapter/tree/main/imagebind_LLM">
+            ImageBind-LLM
+          </a>
+          <a class="navbar-item" href="https://github.com/ZiyuGuo99/Point-Bind_Point-LLM">
+            Point-Bind & Point-LLM
+          </a>
+          <a class="navbar-item" href="https://github.com/ZrrSkywalker/Personalize-SAM">
+            PerSAM
+          </a>
+          <a class="navbar-item" href="https://caraj7.github.io/comat/">
+            CoMat
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+-->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <span class="mathvista" style="vertical-align: middle">MME-Emotion</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            MME-Emotion: A Holistic Evaluation Benchmark For Emotional Intelligence in Multimodal Large Language Models
+            <!-- <br> -->
+            <!-- with GPT-4V, Bard, and Other Large Multimodal Models -->
+          </h2>
+        
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="">MME-Emotion Team</a><sup style="color:#4169E1;">1</sup>,
+            </span>
+          </div>
+           <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://www.arxiv.org/pdf/2508.09210"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://www.arxiv.org/abs/2508.09210"
+                   class="external-link button is-normal is-rounded is-dark">
+                <!-- <a href="https://arxiv.org/abs/2409.12959"
+                   class="external-link button is-normal is-rounded is-dark"> -->
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zfkarl"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> 
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/zfkarl"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span> 
+              <!-- Visualization Link. -->
+              <!--
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/CaraJ/MME-CoT/viewer"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🔮</p>
+                  </span>
+                  <span>Visualize</span>
+                </a>
+              </span>
+              -->
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="https://mme-emotion.github.io/#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent advances in multimodal large language models (MLLMs) have catalyzed transformative progress in affective computing, enabling models to exhibit emergent emotional intelligence. Despite substantial methodological progress, current emotional benchmarks remain limited, as it is still unknown: <b>(a)</b> the generalization abilities of MLLMs across distinct scenarios, and <b>(b)</b> their reasoning capabilities to identify the triggering factors behind emotional states.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/intro/fig_intro.png" alt="grade-lv" width="95%"/>
+            <p>Overview of MME-Emotion Statistics.</p>
+          </div>
+          <div class="content has-text-centered">
+            <img src="static/images/intro/fig_data_cmp.png" alt="grade-lv" width="95%"/>
+            <p>Comparison of MME-Emotion with other Benchmarks related to Emotional Intelligence.</p>
+          </div>
+          <p>
+            Towards this end, we present <b>MME-Emotion</b>, the first-ever comprehensive emotional intelligence benchmark for MLLMs, featuring <b>scalable capacity</b>, <b>diverse settings</b>, and <b>unified protocols</b>. As shown in the figure above, MME-Emotion consists of 6,500 video clips associated with task-specific question-answering (QA) pairs across 27 distinct scenario types to formulate eight emotional tasks, including emotion recognition in the lab (ER-Lab), emotion recognition in the wild (ER-Wild), emotion recognition under noise (Noise-ER), fine-grained emotion recognition (FG-ER), multi-label emotion recognition (ML-ER), sentiment analysis (SA), fine-grained sentiment analysis (FG-SA), and intent recognition (IR). The distributions of question volume and video duration are balanced across all tasks, with each task containing a minimum of 500 QA pairs and video clips averaging &gt;3.3 seconds.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/intro/fig_framework.png" alt="grade-lv" width="95%"/>
+            <p>Illustration of Our Evaluation Strategy.</p>
+          </div>
+          <p>
+            Going beyond this, we provide a holistic evaluation suite for assessing the capabilities of MLLMs in emotion recognition and reasoning using unified protocols across all sub-tasks within MME-Emotion. For each question, we employ a multi-agent system framework to enable automated evaluation of MLLMs' responses with an MLLM-as-judge strategy. The visual clues, extracted audio clues, ground-truth emotion labels, and partitioned answer steps of a specific MLLM are fed into a GPT-based judge agent to evaluate the performance using three metrics: recognition score, reasoning score, and Chain-of-Thought (CoT) score. To further validate our evaluation approach, we also ask five human experts to cross-evaluate the performance of MLLMs on sampled data and manually annotated scores at each answer step. The comparison between GPT and expert scores demonstrates high consistency across multiple statistical metrics, confirming the effectiveness of our automated evaluation strategy.
+          </p>
+          <div class="content has-text-centered">
+            <img src="static/images/intro/fig_radar.png" alt="grade-lv" width="95%"/>
+            <p>Performance Comparison of Leading MLLMs on MME-Emotion.</p>
+          </div>
+          <p>
+            Applying our evaluation suite to 20 state-of-the-art MLLMs, we uncover both their strengths and limitations, yielding the following key insights:
+            <b>(1)</b> The overall emotional intelligence of current MLLMs remains far from satisfactory. Even the top-performing model (Gemini-2.5-Pro) achieves merely 39.3% recognition score and 56.0% CoT score on our benchmark, respectively. The average performance across all evaluated MLLMs (29.4% recognition score, 49.5% reasoning score, and 39.5% CoT score) indicates there is still substantial room for improvement.
+            <b>(2)</b> While generalist models (e.g., Gemini-2.5-Pro and GPT-4o) derive emotional intelligence from generalized multimodal understanding capabilities, specialist models (e.g., R1-Omni and Audio-Reasoner) can achieve comparable performance through emotion-specific post-training adaptation techniques, such as supervised fine-tuning (SFT) and human preference alignment.
+            <b>(3)</b> Generally, response step count positively correlates with model performance, underscoring the necessity for equipping MLLMs with emotion reasoning capabilities in future development.
+          </p>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+
+
+<!-- Evaluation SECTION -->
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+    <!-- <h1 class="title is-1 mathvista"><img src="static/images/logo.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>MathVista Dataset</h1> -->
+  <h1 class="title is-1 mathvista">
+    <span class="mathvista" style="vertical-align: middle">Experimental Results</span>
+  </h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3" id="leaderboard">Leaderboard</h2>
+        <div class="content">
+          <table class="js-sort-table" id="results">
+            <thead>
+              <tr>
+                <th rowspan="2" style="vertical-align: middle;"><strong>#</strong></th>
+                <th rowspan="2" style="vertical-align: middle;"><strong>Model</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>ER-Lab</strong></th>
+                <极 colspan="3" style="vertical-align: middle;"><strong>ER-Wild</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>Noise-ER</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>FG-ER</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>ML-ER</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>SA</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>FG-SA</strong></th>
+                <th colspan="3" style="vertical-align: middle;"><strong>IR</strong></th>
+              </tr>
+              <tr>
+                <!-- ER-Lab metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- ER-Wild metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- Noise-ER metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- FG-ER metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- ML-ER metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- SA metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- FG-SA metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+                <!-- IR metrics -->
+                <th><strong>Rec-S</strong></th>
+                <th><strong>Rea-S</strong></th>
+                <th><strong>CoT-S</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><b class="best-score-text">Gemini-2.5-Pro 🥇</b></td>
+                <td>22.6</td><td>62.7</td><td>42.7</td>
+                <td>36.7</td><td>67.3</td><td>52.0</td>
+                <td>57.6</td><td>81.2</td><td>69.4</td>
+                <td>38.6</td><td>61.0</td><td>49.8</td>
+                <td>50.6</td><td>80.5</td><td>65.5</td>
+                <td>48.2</td><td>78.7</td><td>63.4</td>
+                <td>16.6</td><td>64.3</td><td>40.5</td>
+                <td>28.1</td><td>84.7</td><td>56.4</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><b class="best-score-text">Audio-Reasoner 🥈</b></td>
+                <td>32.6</td><td>72.6</td><td>52.6</td>
+                <td>28.8</td><td>60.4</td><td>44.6</td>
+                <td>47.6</td><td>80.4</td><td>64.0</td>
+                <td>9.1</td><td>47.3</td><td>28.2</td>
+                <td>41.1</td><td>77.5</td><td>59.3</td>
+                <td>62.2</td><td>81.9</td><td>72.0</td>
+                <td>30.5</td><td>82.极</td><td>56.6</td>
+                <td>23.4</td><td>74.9</td><td>49.2</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><b class="best-score-text">GPT-4o 🥉</b></td>
+                <td>21.8</td><td>79.4</td><td>50.6</td>
+                <td>26.8</td><td>74.8</td><td>50.8</td>
+                <td>27.8</td><td>78.2</td><td>53.0</td>
+                <td>31.8</td><td>68.6</td><td>50.2</td>
+                <td>29.9</td><td>82.5</td><td>56.2</td>
+                <td>34.6</td><td>85.7</td><td>60.2</td>
+                <td>7.6</td><td>79.7</td><td>43.6</td>
+                <td>29.1</td><td>88.9</td><td>59.0</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td><b class="">Qwen2.5-VL-72B</b></td>
+                <td>21.2</td><td>60.2</td><td>40.7</td>
+                <td>32.4</td><td>67.2</td><td>49.8</td>
+                <td>41.2</td><td>74.6</td><td>57.9</td>
+                <td>27.3</td><td>69.8</td><td>48.6</td>
+                <td>31.2</td><td>88.6</td><td>59.9</td>
+                <td>37.5</td><td>81.9</td><td>59.7</td>
+                <td>14.2</td><td>75.8</td><td>45.0</td>
+                <td>27.9</td><td>93.4</td><td>60.6</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td><b class="">QVQ</b></td>
+                <td>21.2</td><td>62.4</td><td>41.8</td>
+                <td>31.8</td><td>61.6</td><td>46.7</td>
+                <td>39.6</td><td>72.7</td><td>56.2</td>
+                <td>26.6</td><td>67.8</td><td>47.2</td>
+                <td>25.2</td><td>82.3</td><td>53.7</td>
+                <td>43.0</td><td>76.2</td><td>59.6</td>
+                <td>13.0</td><td>60.2</td><td>36.6</td>
+                <td>25.7</td><td>84.0</td><td>54.8</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td><b class="">Gemini-2.0-Flash</b></td>
+                <td>24.0</td><td>55.6</td><td>39.8</td>
+                <td>41.1</td><td>56.9</td><td>49.0</td>
+                <td>52.4</td><td>67.5</td><td>60.0</td>
+                <td>30.9</td><td>58.6</td><td>44.7</td>
+                <td>38.3</td><td>71.7</td><td>55.0</td>
+                <td>42.1</td><td>61.1</td><td>51.6</td>
+                <td>11.0</td><td>44.0</td><td>27.5</td>
+                <td>24.7</td><td>67.9</td><td>46.3</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td><b class="">GPT-4.1</b></td>
+                <td>21.2</td><td>46.6</td><td>33.9</td>
+                <td>29.3</td><td>54.8</td><td>42.1</td>
+                <td>32.8</td><td>61.3</td><td>47.0</td>
+                <td>28.4</td><td>67.3</td><td>47.8</td>
+                <td>35.0</td><td>76.2</td><td>55.6</td>
+                <td>33.8</td><td>74.3</td><td>54.0</td>
+                <td>7.4</td><td>70.9</td><td>39.1</td>
+                <td>28.7</td><td>75.8</td><td>52.2</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td><b class="">Qwen2.5-VL-7B</b></td>
+                <td>22.0</td><td>62.0</td><td>42.0</td>
+                <td>28.9</td><td>55.3</td><td>42.1</td>
+                <td>37.8</td><td>62.9</td><td>50.3</td>
+                <td>19.5</td><td>62.2</td><td>40.9</td>
+                <td>23.6</td><td>75.2</td><td>49.4</td>
+                <td>36.5</td><td>70.7</td><td>53.6</td>
+                <td>12.2</td><td>56.6</td><td>34.4</td>
+                <td>28.1</td><td>82.5</td><td>55.3</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td><b class="">Gemini-2.5-Flash</b></td>
+                <td>19.6</td><td>48.3</td><td>33.9</td>
+                <td>35.8</td><td>54.9</td><td>45.3</td>
+                <td>54.4</td><td>73.2</td><td>63.8</td>
+                <td>20.5</td><td>37.8</td><td>29.2</td>
+                <td>38.7</td><td>30.1</td><td>34.4</td>
+                <td>44.2</td><td>55.9</td><td>50.1</td>
+                <td>15.2</td><td>47.4</td><td>31.3</td>
+                <td>24.6</td><td>65.5</td><td>45.1</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td><b class="">R1-Omni</b></td>
+                <td>20.6</td><td>58.0</td><td>39.3</td>
+                <td>34.3</td><td>52.8</td><td>43.6</td>
+                <td>52.0</td><td>67.4</td><td>59.7</td>
+                <td>5.1</td><td>49.5</td><td>27.3</td>
+                <td>23.1</td><td>76.2</td><td>49.6</td>
+                <td>27.8</td><td>60.6</td><td>44.2</td>
+                <td>7.6</td><td>51.9</td><td>29.8</td>
+                <td>16.6</td><td>58.7</td><td>37.7</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td><b class="">Qwen2-Audio</b></td>
+                <td>20.4</td><td>32.3</td><td>26.3</td>
+                <td>22.3</td><td>38.4</td><td>30.3</td>
+                <td>38.8</td><td>57.6</td><td>48.2</td>
+                <td>21.7</td><td>22.0</td><td>21.8</td>
+                <td>53.5</td><td>72.8</td><td>63.2</td>
+                <td>53.6</td><td>65.4</td><td>59.5</td>
+                <td>19.6</td><td>62.5</td><td>41.1</td>
+                <td>27.3</td><td>45.9</td><td>36.6</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td><b class="">Qwen2.5-Omni</b></td>
+                <td>19.8</td><td>50.7</td><td>35.2</td>
+                <td>19.0</td><td>54.3</td><td>36.7</td>
+                <td>24.2</td><td>60.1</td><td>42.1</td>
+                <td>10.4</td><td>42.3</td><td>26.3</td>
+                <td>11.0</td><td>64.9</td><td>38.0</td>
+                <td>24.6</td><td>68.1</td><td>46.3</td>
+                <td>6.2</td><td>45.2</td><td>25.7</td>
+                <td>5.4</td><td>81.8</td><td>43.6</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td><b class="">Video-LLaMA</b></td>
+                <td>15.0</td><td>34.7</td><td>24.8</td>
+                <td>25.5</td><td>44.7</td><td>35.1</td>
+                <td>28.0</td><td>38.1</td><td>33.0</td>
+                <td>33.7</td><td>34.6</td><td>34.1</td>
+                <td>29.6</td><td>68.7</td><td>49.2</td>
+                <td>31.3</td><td>50.7</td><td>41.0</td>
+                <td>14.6</td><td>54.6</td><td>34.6</td>
+                <td>20.2</td><td>62.5</td><td>41.4</td>
+              </tr>
+              <tr>
+                <td>14</td>
+                <td><b class="">Qwen2-VL-7B</b></td>
+                <td>15.2</td><td>3.0</td><td>9.1</td>
+                <td>31.5</td><td>32.3</td><td>31.9</td>
+                <td>45.4</td><td>50.2</td><td>47.8</td>
+                <td>26.4</td><td>4.5</td><td>15.4</td>
+                <td>30.3</td><td>24.3</td><td>27.3</td>
+                <td>34.1</td><td>60.6</td><td>47.3</td>
+                <td>7.6</td><td>37.6</td><td>22.6</td>
+                <td>26.3</td><td>61.0</td><td>43.6</td>
+              </tr>
+              <tr>
+                <td>15</td>
+                <td><b class="">AffectGPT</b></td>
+                <td>18.0</td><td>64.4</td><td>41.2</td>
+                <td>8.3</td><td>41.9</td><td>25.1</td>
+                <td>16.8</td><td极>59.5</td><td>38.1</td>
+                <td>5.2</td><td>40.6</td><td>22.9</td>
+                <td>10.8</td><td>65.9</td><td>38.3</td>
+                <td>17.6</td><td>52.3</td><td>35.0</td>
+                <td>12.8</td><td>51.3</td><td>32.1</td>
+                <td>1.8</td><td>44.0</td><td>22.9</td>
+              </tr>
+              <tr>
+                <td>16</td>
+                <td><b class="">Video-LLaVA</b></td>
+                <td>11.2</td><td>8.7</td><td>9.9</td>
+                <td>21.2</td><td>2.2</td><td>11.7</td>
+                <td>37.6</td><td>22.3</td><td>29.9</td>
+                <td>10.9</td><td>26.6</td><td>18.7</td>
+                <td>52.7</td><td>57.1</td><td>54.9</td>
+                <td>35.8</td><td>55.8</td><td>45.8</td>
+                <td>5.8</td><td>73.6</td><td>39.7</td>
+                <td>15.4</td><td>39.8</td><td>27.6</td>
+              </tr>
+              <tr>
+                <td>17</td>
+                <td><b class="">Video-LLaMA2</b></td>
+                <td>23.4</td><td>0.3</td><td>11.9</td>
+                <td>25.4</td><td>44.7</td><td>35.0</td>
+                <td>45.0</td><td>13.0</td><td>29.0</td>
+                <td>21.3</td><td>5.3</td><td>13.3</td>
+                <td>40.1</td><td>31.0</td><td>35.5</td>
+                <td>37.6</td><td>27.3</td><td>32.5</td>
+                <td>13.0</td><td>41.3</td><td>27.2</td>
+                <td>16.8</td><td>14.2</td><td>15.5</td>
+              </tr>
+              <tr>
+                <td>18</td>
+                <td><b class="">Qwen2-VL-72B</b></td>
+                <td>20.6</td><td>21.7</td><td>21.2</td>
+                <td>33.3</td><td>15.4</td><td>24.3</td>
+                <td>47.4</td><td>21.6</td><td>34.5</td>
+                <td>23.9</td><td>2.9</td><td>13.4</td>
+                <td>33.5</td><td>0.8</td><td>17.1</td>
+                <td>34.8</td><td>9.3</td><td>22.1</td>
+                <td>10.0</td><td>3.9</td><td>7.0</td>
+                <td>30.7</td><td>0.0</td><td>15.3</td>
+              </tr>
+              <tr>
+                <td>19</td>
+                <td><b class="">HumanOmni</b></td>
+                <td>24.8</td><td>0.0</td><td>12.4</td>
+                <td>52.8</td><td>0.0</td><td>26.4</td>
+                <td>68.4</td><td>0.0</td><td>34.2</td>
+                <td>16.5</td><td>0.8</td><td>8.6</td>
+                <td>34.3</td><td>2.7</td><td>18.5</td>
+                <td>32.1</td><td>0.0</td><td>16.0</td>
+                <td>7.8</td><td>0.0</td><td>3.9</td>
+                <td>15.8</td><td>0.2</td><td>8.0</td>
+              </tr>
+              <tr>
+                <td>20</td>
+                <td><b class="">Emotion-LLaMA</b></td>
+                <td>21.0</td><td>0.0</td><td>10.5</td>
+                <td>32.3</td><td>0.0</td><td>16.1</td>
+                <td>58.4</td><td>0.0</td><td>29.2</td>
+                <td>10.7</td><td>4.3</td><td>7.5</td>
+                <td>5.7</td><td>0.5</td><td>3.1</td>
+                <td>26.1</td><td>0.1</td><td>13.1</td>
+                <td>5.8</td><td>0.0</td><td>2.9</td>
+                <td>23.8</td><td>0.3</td><td>12.0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Fine-grained Comparison</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_overall.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on MME-Emotion.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_er_lab.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on ER-Lab.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_er_wild.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on ER-Wild.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_noise_er.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on Noise-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_fg_er.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on FG-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_ml_er.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on ML-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_sa.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_fg_sa.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on FG-SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_ir.png" alt="grade-lv" width="90%"/>
+              <p>Overall Performance Comparison (%) on IR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Category-level Comparison</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_er_lab.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on ER-Lab.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_er_wild.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on ER-Wild.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_noise_er.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on Noise-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_sa.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_fg_sa.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on FG-SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/exp/fig_heatmap_ir.png" alt="grade-lv" width="90%"/>
+              <p>Category-level Performance Comparison (%) on IR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Visualization Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_er_lab.png" alt="" width="90%"/>
+              <p>Case Study on ER-Lab.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_er_wild.png" alt="" width="90%"/>
+              <p>Case Study on ER-Wild.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_noise_er.png" alt="" width="90%"/>
+              <p>Case Study on Noise-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_fg_er.png" alt="" width="90%"/>
+              <p>Case Study on FG-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_ml_er.png" alt="" width="90%"/>
+              <p>Case Study on ML-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_sa.png" alt="" width="90%"/>
+              <p>Case Study on SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_fg_sa.png" alt="" width="90%"/>
+              <p>Case Study on FG-SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_ir.png" alt="" width="90%"/>
+              <p>Case Study on IR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Visualization Examples</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_er_lab.png" alt="" width="90%"/>
+              <p>Case Study on ER-Lab.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_er_wild.png" alt="" width="90%"/>
+              <p>Case Study on ER-Wild.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_noise_er.png" alt="" width="90%"/>
+              <p>Case Study on Noise-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_fg_er.png" alt="" width="90%"/>
+              <p>Case Study on FG-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_ml_er.png" alt="" width="90%"/>
+              <p>Case Study on ML-ER.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_sa.png" alt="" width="90%"/>
+              <p>Case Study on SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_fg_sa.png" alt="" width="90%"/>
+              <p>Case Study on FG-SA.</p>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <img src="static/images/case/case_fig_case_ir.png" alt="" width="90%"/>
+              <p>Case Study on IR.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- @PAN TODO: bibtex -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">BibTeX</h2>
+    <pre><code>@article{zhang2025mme,
+  title={MME-Emotion: A Holistic Evaluation Benchmark for Emotional Intelligence in Multimodal Large Language Models},
+  author={Zhang, Fan and Cheng, Zebang and Deng, Chong and Li, Haoxuan and Lian, Zheng and Chen, Qian and Liu, Huadai and Wang, Wen and Zhang, Yi-Fan and Zhang, Renrui and others},
+  journal={arXiv preprint arXiv:2508.09210},
+  year={2025}
+}</code></pre>
+  </div>
+</section> 
+
+<!-- <section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.cuhk.edu.hk/chinese/index.html" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/cuhk.png">
+    </a>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.shlab.org.cn/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/shlab.png">
+    </a>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.ucla.edu/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/ucla.png">
+    </a>
+    <a href="https://www.washington.edu/" target="blank" class="ext-link">
+        <img class="center-block org-banner" src="static/images/uw.png">
+    </a>
+    <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/microsoft.png">
+    </a>
+  </div>
+</section> -->
+
+<section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.cuhk.edu.hk/chinese/index.html" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/logo/cuhk.png">
+    </a>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://tongyi.aliyun.com/welcome" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/logo/tongyi.png">
+    </a>
+  </div>
+</section>
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is adapted from <a href="https://mmecot.github.io/">MME-COT</a>, <a href="https://mathverse-cuhk.github.io/">MathVerse</a> and <a href="https://nerfies.github.io/">Nerfies</a>, licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
